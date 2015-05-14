@@ -21,10 +21,13 @@ module ActiveAdmin
     module TableMethods
       HANDLE = '&#x2195;'.html_safe
 
-      def sortable_handle_column url = nil
+      def sortable_handle_column url = nil, *url_objects
         column '', :class => "activeadmin-sortable" do |resource|
+          p "YYYYY"
+          p resource
+
           if url
-            sort_url = url
+            sort_url = send(url, *url_objects, resource)
           else
             sort_url, query_params = resource_path(resource).split '?', 2
             sort_url += "/sort"
