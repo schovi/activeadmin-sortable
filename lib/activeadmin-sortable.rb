@@ -24,7 +24,7 @@ module ActiveAdmin
       def sortable_handle_column &route
         column '', :class => "activeadmin-sortable" do |resource|
           if route
-            sort_url = route(resource)
+            sort_url = yield(resource)
           else
             sort_url, query_params = resource_path(resource).split '?', 2
             sort_url += "/sort"
